@@ -143,34 +143,31 @@ class ToolValidator:
 
                 fb_result, now = get_fb(token_text)
                 # Add 20 seconds to the time that was gotten in the same moment as the factbase list
-                control_20_secs = now + timedelta(seconds = 20)
+                control_20_secs = now + timedelta(seconds = 300)
 
                 # Only take the titles of those factbases where Status == OK
                 for i in range(len(fb_result['data'])):
                     busy_worker = fb_result['data'][i]['attributes']['busy_worker_ping']
                     free_worker = fb_result['data'][i]['attributes']['free_worker_ping']
-                    entries.append(busy_worker)
-                    entries.append(free_worker)
+                    #entries.append(busy_worker)
+                    #entries.append(free_worker)
                     check_busy = datetime.strptime(busy_worker, "%Y-%m-%dT%H:%M:%S.%f+00:00")
                     check_free = datetime.strptime(free_worker, "%Y-%m-%dT%H:%M:%S.%f+00:00")
-                    """
+
                     if check_free < control_20_secs:
                         entries.append(fb_result['data'][i]['attributes']['title'])
                     elif check_busy < control_20_secs:
                         entries.append(fb_result['data'][i]['attributes']['title'])
                     else:
                         entries.append("helloooooo")
-                """
                 # Add titles to parameter drop-down list
                 if len(entries) > 0:
                     self.params[3].filter.list = entries
                     # Make Factbase parameter visible
                     self.params[3].enabled = True
                 else:
-                    sys.exit(0)
-
-                #self.params[3].enabled = True
-               # self.params[3].filter.list = ["hi", "bye"]
+                    self.params[3].filter.list = "n/a"
+                    #sys.exit(0)
 
         # ------------------------------------ FILL KNOWLEDGEBASE VALUES  -----------------------------------------
 
@@ -403,6 +400,9 @@ class ToolValidator:
     def updateMessages(self):
         # Customize messages for the parameters.
         # This gets called after standard validation.
+        
+        if self.params[3].value == "n/a":
+            self.params[3].setErrorMessage("No factbases are currently online. Please try again at a later time.")
 
 
         if self.params[2].value == True:
@@ -420,6 +420,7 @@ class ToolValidator:
 
             selected_fb = self.params[3].value
 
+        
             # ------------------------------------ CHECKS FOR DATE RANGE -----------------------------------------
 
             # Date format in Sen2Cube JSON: 2021-01-28
