@@ -1,0 +1,38 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.099, 47.678]
+      },
+      "properties": {
+        "tweet_text": "This is the first tweet. #happy",
+        "emotion": "happy"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.102, 47.679]
+      },
+      "properties": {
+        "tweet_text": "Feeling sad today. #sad",
+        "emotion": "sad"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.096, 47.682]
+      },
+      "properties": {
+        "tweet_text": "A great day ahead. #happy",
+        "emotion": "happy"
+      }
+    }
+  ]
+}
